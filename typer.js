@@ -15,8 +15,15 @@ var WordView = Backbone.View.extend({
 		var letter_width = 25;
 		var word_width = string.length * letter_width;
 		if(this.model.get('x') + word_width > $(window).width()) {
-			this.model.set({x:$(window).width() - word_width});
+			this.model.set({x:$(window).width() - word_width * 2});
 		}
+		var self = this;
+		// Untuk soal no.5
+		$(window).resize(function() {
+			if(self.model.get('x') + word_width > $(window).width()) {
+				self.model.set({x:$(window).width() - word_width});
+			}
+		});
 		for(var i = 0;i < string.length;i++) {
 			$(this.el)
 				.append($('<div>')
@@ -92,6 +99,8 @@ var TyperView = Backbone.View.extend({
 					}
 				}
 			});
+
+		let start_button = $('<button>')
 
 		$(this.el)
 			.append(wrapper

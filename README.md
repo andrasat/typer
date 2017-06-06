@@ -9,9 +9,13 @@ Pertanyaan:
 
 ```
 Backbone.js - http://github.com/jashkenas/backbone - http://backbonejs.org/
+
 Underscore.js - https://github.com/jashkenas/underscore - http://underscorejs.org/
+
 JQuery - http://jquery.com/ - http://api.jquery.com/
+
 JQuery UI  - http://jqueryui.com/ - http://api.jqueryui.com/
+
 ```
 
 2. Aplikasi itu 'laggy'. Kenapa? Bagaimana cara membuat animasi lebih 'smooth'?
@@ -20,8 +24,13 @@ JQuery UI  - http://jqueryui.com/ - http://api.jqueryui.com/
 Mengurangi value animation_delay agar terlihat lebih smooth
 ```    
 
-3. Aplikasi itu tidak akan jalan di salah satu 3 browser populer (Chrome, Firefox, Internet Explorer)? Kenapa? Solusinya hanya menghapus satu character di code, character yang mana?    
-4. Implementasikan tombol Start, Stop, Pause, dan Resume.   
-5. Ketika ukuran window dirubah, susunan huruf yang 'terbentur' batas window menjadi tidak 1 baris. Benarkan.    
+3. Aplikasi itu tidak akan jalan di salah satu 3 browser populer (Chrome, Firefox, Internet Explorer)? Kenapa? Solusinya hanya menghapus satu character di code, character yang mana?
+
+```
+
+```
+
+4. Implementasikan tombol Start, Stop, Pause, dan Resume.
+5. Ketika ukuran window dirubah, susunan huruf yang 'terbentur' batas window menjadi tidak 1 baris. Benarkan. `V`
 6. Implementasikan sistem score.   
-7. Implementasikan hukuman berupa pengurangan nilai bila salah ketik.
+7. Implementasikan hukuman berupa pengurangan nilai bila salah ketik. 
