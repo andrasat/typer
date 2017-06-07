@@ -31,6 +31,6 @@ Mengurangi value animation_delay agar terlihat lebih smooth
 ```
 
 4. Implementasikan tombol Start, Stop, Pause, dan Resume.
-5. Ketika ukuran window dirubah, susunan huruf yang 'terbentur' batas window menjadi tidak 1 baris. Benarkan. `V`
+5. Ketika ukuran window dirubah, susunan huruf yang 'terbentur' batas window menjadi tidak 1 baris. Benarkan.
 6. Implementasikan sistem score.   
-7. Implementasikan hukuman berupa pengurangan nilai bila salah ketik. 
+7. Implementasikan hukuman berupa pengurangan nilai bila salah ketik.

@@ -14,16 +14,15 @@ var WordView = Backbone.View.extend({
 		var string = this.model.get('string');
 		var letter_width = 25;
 		var word_width = string.length * letter_width;
-		if(this.model.get('x') + word_width > $(window).width()) {
-			this.model.set({x:$(window).width() - word_width * 2});
-		}
 		var self = this;
-		// Untuk soal no.5
-		$(window).resize(function() {
-			if(self.model.get('x') + word_width > $(window).width()) {
+		if(this.model.get('x') + word_width > $(window).width()) {
+			this.model.set({x:$(window).width() - word_width});
+			// Untuk soal no.5
+			$(window).resize(function() {
 				self.model.set({x:$(window).width() - word_width});
-			}
-		});
+			});
+		}
+
 		for(var i = 0;i < string.length;i++) {
 			$(this.el)
 				.append($('<div>')
@@ -101,6 +100,70 @@ var TyperView = Backbone.View.extend({
 			});
 
 		let start_button = $('<button>')
+			.text('Start')
+			.addClass('start-button')
+			.css({
+				'border-radius': '20%',
+				'position': 'absolute',
+				'bottom': '10%',
+				'left': '12%',
+				'min-width': '7%',
+				'width': '7%',
+				'margin-bottom': '5px',
+				'z-index': '100'
+			}).click(function() {
+				let typer = self.model.start;
+				console.log(typer)
+				typer();
+			});
+
+		let stop_button = $('<button>')
+			.text('Stop')
+			.addClass('stop-button')
+			.css({
+				'border-radius': '20%',
+				'position': 'absolute',
+				'bottom': '10%',
+				'left': '20%',
+				'min-width': '7%',
+				'width': '7%',
+				'margin-bottom': '5px',
+				'z-index': '100'
+			}).click(function() {
+
+			});
+
+		let pause_button = $('<button>')
+			.text('Pause')
+			.addClass('pause-button')
+			.css({
+				'border-radius': '20%',
+				'position': 'absolute',
+				'bottom': '10%',
+				'right': '12%',
+				'min-width': '7%',
+				'width': '7%',
+				'margin-bottom': '5px',
+				'z-index': '100'
+			}).click(function() {
+
+			});
+
+		let resume_button = $('<button>')
+			.text('Resume')
+			.addClass('resume-button')
+			.css({
+				'border-radius': '20%',
+				'position': 'absolute',
+				'bottom': '10%',
+				'right': '20%',
+				'min-width': '7%',
+				'width': '7%',
+				'margin-bottom': '5px',
+				'z-index': '100'
+			}).click(function() {
+
+			});
 
 		$(this.el)
 			.append(wrapper
@@ -112,6 +175,9 @@ var TyperView = Backbone.View.extend({
 						return false;
 					})
 					.append(text_input)));
+
+		$(this.el)
+			.append(wrapper.append(start_button).append(stop_button).append(pause_button).append(resume_button))
 
 		text_input.css({left:((wrapper.width() - text_input.width()) / 2) + 'px'});
 		text_input.focus();
@@ -147,7 +213,7 @@ var Typer = Backbone.Model.extend({
 		min_distance_between_words:50,
 		words:new Words(),
 		min_speed:1,
-		max_speed:5,
+		max_speed:5
 	},
 
 	initialize: function() {
@@ -163,6 +229,10 @@ var Typer = Backbone.Model.extend({
 		setInterval(function() {
 			self.iterate();
 		},animation_delay);
+	},
+
+	stop: function() {
+
 	},
 
 	iterate: function() {
