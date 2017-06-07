@@ -112,9 +112,9 @@ var TyperView = Backbone.View.extend({
 				'margin-bottom': '5px',
 				'z-index': '100'
 			}).click(function() {
-				let typer = self.model.start;
-				console.log(typer)
-				typer();
+				let typerModel = new Typer();
+				typerModel.start();
+				console.log(typerModel);
 			});
 
 		let stop_button = $('<button>')
@@ -130,7 +130,9 @@ var TyperView = Backbone.View.extend({
 				'margin-bottom': '5px',
 				'z-index': '100'
 			}).click(function() {
-
+				let model = self.model;
+				model.destroy();
+				// console.log(cid)
 			});
 
 		let pause_button = $('<button>')
@@ -146,7 +148,7 @@ var TyperView = Backbone.View.extend({
 				'margin-bottom': '5px',
 				'z-index': '100'
 			}).click(function() {
-
+				self.stopListening(self.model);
 			});
 
 		let resume_button = $('<button>')
@@ -162,7 +164,7 @@ var TyperView = Backbone.View.extend({
 				'margin-bottom': '5px',
 				'z-index': '100'
 			}).click(function() {
-
+				self.listenTo(self.model, 'change', self.render);
 			});
 
 		$(this.el)
@@ -229,10 +231,6 @@ var Typer = Backbone.Model.extend({
 		setInterval(function() {
 			self.iterate();
 		},animation_delay);
-	},
-
-	stop: function() {
-
 	},
 
 	iterate: function() {
