@@ -27,7 +27,7 @@ Mengurangi value animation_delay agar terlihat lebih smooth
 3. Aplikasi itu tidak akan jalan di salah satu 3 browser populer (Chrome, Firefox, Internet Explorer)? Kenapa? Solusinya hanya menghapus satu character di code, character yang mana?
 
 ```
-
+karena trailing comma = ,
 ```
 
 4. Implementasikan tombol Start, Stop, Pause, dan Resume.

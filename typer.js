@@ -71,6 +71,17 @@ var TyperView = Backbone.View.extend({
 			});
 		this.wrapper = wrapper;
 
+		// let score_view = $('<p>')
+		// 	.addClass('score-view')
+		// 	.css({
+		// 		'position': 'absolute',
+		// 		'bottom': '15%',
+		// 		'text-align': 'center',
+		// 		'left': '12%',
+		// 		'z-index': '100'
+		// 	})
+		// 	.text('Score : ' + model.get('score'))
+
 		var self = this;
 		var text_input = $('<input>')
 			.addClass('form-control')
@@ -91,6 +102,7 @@ var TyperView = Backbone.View.extend({
 					if(string.toLowerCase().indexOf(typed_string.toLowerCase()) == 0) {
 						word.set({highlight:typed_string.length});
 						if(typed_string.length == string.length) {
+							self.model.incScore();
 							$(this).val('');
 						}
 					} else {
@@ -133,6 +145,7 @@ var TyperView = Backbone.View.extend({
 				let words = self.model.get('words');
 				let running = model.get('running');
 				// console.log(words);
+				model.set('score', 0);
 				for(let i=0; i < words.length; i++){
 					let word = words.at(i);
 					let wordV = word.get('view');
@@ -176,6 +189,7 @@ var TyperView = Backbone.View.extend({
 				self.model.start();
 			});
 
+
 		$(this.el)
 			.append(wrapper
 				.append($('<form>')
@@ -196,9 +210,12 @@ var TyperView = Backbone.View.extend({
 		this.listenTo(this.model, 'change', this.render);
 	},
 
+	template: _.template('Score : <%= score %>'),
+
 	render: function() {
 		var model = this.model;
 		var words = model.get('words');
+		// this.wrapper.html( this.template(model.toJSON()) );
 
 		for(var i = 0;i < words.length;i++) {
 			var word = words.at(i);
@@ -225,7 +242,8 @@ var Typer = Backbone.Model.extend({
 		words:new Words(),
 		min_speed:1,
 		max_speed:5,
-		running: null
+		running: null,
+		score: 0
 	},
 
 	initialize: function() {
@@ -242,6 +260,18 @@ var Typer = Backbone.Model.extend({
 			self.iterate();
 		},animation_delay);
 		this.set('running', interval);
+	},
+
+	incScore: function() {
+		this.set('score', this.get('score') + 2);
+		console.log(this.get('score'));
+		this.trigger('change');
+	},
+
+	decScore: function() {
+		this.set('score', this.get('score') - 5);
+		console.log(this.get('score'));
+		this.trigger('change');
 	},
 
 	iterate: function() {
