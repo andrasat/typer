@@ -112,9 +112,8 @@ var TyperView = Backbone.View.extend({
 				'margin-bottom': '5px',
 				'z-index': '100'
 			}).click(function() {
-				let typerModel = new Typer();
+				var typerModel = new Typer();
 				typerModel.start();
-				console.log(typerModel);
 			});
 
 		let stop_button = $('<button>')
@@ -131,8 +130,17 @@ var TyperView = Backbone.View.extend({
 				'z-index': '100'
 			}).click(function() {
 				let model = self.model;
-				model.destroy();
-				// console.log(cid)
+				let words = self.model.get('words');
+				let running = model.get('running');
+				// console.log(words);
+				for(let i=0; i < words.length; i++){
+					let word = words.at(i);
+					let wordV = word.get('view');
+					wordV.remove();
+				}
+
+				clearInterval(running);
+				self.unbind();
 			});
 
 		let pause_button = $('<button>')
@@ -148,7 +156,8 @@ var TyperView = Backbone.View.extend({
 				'margin-bottom': '5px',
 				'z-index': '100'
 			}).click(function() {
-				self.stopListening(self.model);
+				let running = self.model.get('running');
+				clearInterval(running);
 			});
 
 		let resume_button = $('<button>')
@@ -164,7 +173,7 @@ var TyperView = Backbone.View.extend({
 				'margin-bottom': '5px',
 				'z-index': '100'
 			}).click(function() {
-				self.listenTo(self.model, 'change', self.render);
+				self.model.start();
 			});
 
 		$(this.el)
@@ -215,7 +224,8 @@ var Typer = Backbone.Model.extend({
 		min_distance_between_words:50,
 		words:new Words(),
 		min_speed:1,
-		max_speed:5
+		max_speed:5,
+		running: null
 	},
 
 	initialize: function() {
@@ -228,9 +238,10 @@ var Typer = Backbone.Model.extend({
 	start: function() {
 		var animation_delay = 15;
 		var self = this;
-		setInterval(function() {
+		let interval = setInterval(function() {
 			self.iterate();
 		},animation_delay);
+		this.set('running', interval);
 	},
 
 	iterate: function() {
